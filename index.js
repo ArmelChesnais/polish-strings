@@ -16,21 +16,9 @@ function getPriority(op) {
 
 function parsePolishString(input, parentPriority = 0) {
   let result = ""
-  let opPriority = getPriority(input[0])
-  // if ( Array.isArray(input[1]) ) {
-  //   result = parsePolishString(input[1], opPriority)
-  // } else {
-  //   result = input[1]
-  // }
-  result = parseElement(input, 1, opPriority) + " " + input[0] + " " + parseElement(input, 2, opPriority)
+  let opPriority = getPriority(input[0]) // identify current Operator's priority
 
-  // result += " " + input[0]
-
-  // if ( Array.isArray(input[2]) ) {
-  //   result += " " + parsePolishString(input[2], opPriority)
-  // } else {
-  //   result += " " + input[2]
-  // }
+  result = parseElement(input, 1, opPriority) + " " + input[0] + " " + parseElement(input, 2, opPriority) // fill out string
 
   if ( opPriority < parentPriority ) { // writes explicit bracket notation when out of priority ( OR > AND )
     result = "(" + result + ")"
@@ -41,9 +29,9 @@ function parsePolishString(input, parentPriority = 0) {
 
 function parseElement(input, pos, opPriority) {
   if ( Array.isArray(input[pos]) ) {
-    return parsePolishString(input[pos], opPriority)
+    return parsePolishString(input[pos], opPriority) // if element is an array, parse recursively
   } else {
-    return input[pos]
+    return input[pos] // otherwise, just provide the element string
   }
 }
 
